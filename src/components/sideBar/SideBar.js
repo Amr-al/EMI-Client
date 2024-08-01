@@ -14,7 +14,7 @@ export default function SideBar() {
     <div
       className={`sticky  p-2 right-0 ${
         isOpen ? "w-48" : "w-16"
-      } h-[100vh] bg-slate-950 ease-* duration-300 flex flex-col`}
+      } h-[100vh] bg-slate-900 ease-* duration-300 flex flex-col overflow-hidden`}
       dir="rtl"
     >
       {isOpen ? (
@@ -25,7 +25,7 @@ export default function SideBar() {
             cursor: "pointer",
             marginX: "auto",
             color: "white",
-            marginBottom: "4rem",
+            marginBottom: "3.5rem",
           }}
         ></CloseIcon>
       ) : (
@@ -36,11 +36,11 @@ export default function SideBar() {
             cursor: "pointer",
             marginX: "auto",
             color: "white",
-            marginBottom: "4rem",
+            marginBottom: "3.5rem",
           }}
         />
       )}
-      <div className="text-white text-2xl font-serif font-semibold" dir="rtl">
+      <div className="text-white text-base lg:text-2xl font-serif font-semibold" dir="rtl">
         <div className={`my-5 cursor-pointer flex flex-row-reverse gap-1 justify-center bg-slate-400 hover:bg-slate-500 rounded-full p-1`}>
           {isOpen && <p className="w-[75%]"> قسم المنتدبين</p>}
           <AdfScannerIcon sx={{ color: "gold" }} />
@@ -48,8 +48,7 @@ export default function SideBar() {
         <div className={`my-5 cursor-pointer flex flex-row-reverse gap-1 justify-center hover:bg-slate-500 rounded-full p-1`}>
           {isOpen && <p className="w-[75%]">قسم المعلومات</p>}
           <AdfScannerIcon sx={{ color: "gold" }} />
-        </div>
-        <div className={`my-5 cursor-pointer flex flex-row-reverse gap-1 justify-center hover:bg-slate-500 rounded-full p-1`}>
+        </div>        <div className={`my-5 cursor-pointer flex flex-row-reverse gap-1 justify-center hover:bg-slate-500 rounded-full p-1`}>
           {isOpen && <p className="w-[75%]">قسم التخطيط</p>}
           <AdfScannerIcon sx={{ color: "gold" }} />
         </div>

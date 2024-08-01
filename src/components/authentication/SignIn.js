@@ -5,7 +5,7 @@ import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import React, { useState } from "react";
-import { backendUrl, signInUrl } from "../../backendUrls";
+import { signInUrl } from "../../backendUrls";
 const theme = (outerTheme) =>
   createTheme({
     direction: "rtl",
@@ -44,7 +44,7 @@ export default function SignIn() {
     <div className="flex justify-between">
       <div
         style={{
-          backgroundImage: `url("/login.jpg")`,
+          backgroundImage: `url("/uploads/1722439590554.jpg")`,
           backgroundSize: "cover",
         }}
         className="w-3/5 h-[100vh]"

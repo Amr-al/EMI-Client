@@ -1,30 +1,31 @@
 import SignIn from "./components/authentication/SignIn";
-import Header from "./components/commons/Header";
+import SignUp from "./components/authentication/SignUp";
 import AllFaxs from "./components/Faxs/AllFaxs";
-import Temp from "./components/modals/Temp";
-import SideBar from "./components/sideBar/SideBar";
 import {
   Routes,
-  BrowserRouter,
   Route,
-  useBeforeUnload,
 } from "react-router-dom";
+import ProtectedRoute from "./components/utils/ProtectedRoute";
+import SingleDoc from "./components/Faxs/SingleDoc";
+import UnseenFaxs from "./components/Faxs/UnseenFaxs";
 function App() {
   return (
     <Routes>
-      <Route exact path="/signin" element={<SignIn/>} />
+      <Route exact path="/signin" element={<SignIn />} />
+      <Route exact path="/signup" element={<ProtectedRoute><SignUp /></ProtectedRoute>} />
+      <Route exact path="/unreads/:id" element={<ProtectedRoute><SingleDoc /></ProtectedRoute>} />
+      <Route exact path="/docs/:bossName" element={<ProtectedRoute> <UnseenFaxs /> </ProtectedRoute>} />
       <Route
         exact
         path="*"
         element={
-          <>
-          <Temp/>
-            <AllFaxs/>
-          </>
+          <ProtectedRoute>
+            <AllFaxs />
+          </ProtectedRoute>
         }
       />
     </Routes>
-        
+
   );
 }
 

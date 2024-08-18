@@ -4,9 +4,12 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { signInUrl } from "../../backendUrls";
-const theme = (outerTheme) =>
+import { jwtDecode } from "jwt-decode";
+import style from '../Faxs/StyleImage.module.css'
+import { useNavigate } from "react-router-dom";
+const theme = () =>
   createTheme({
     direction: "rtl",
   });
@@ -15,42 +18,55 @@ const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
 });
-
 export default function SignIn() {
-  const [name,setName] = useState();
-  const [password,setPassword] = useState();
-  const [check , setCheck] = useState(false);
-  const [err,setErr] = useState();
-  const handelSubmit = async (e)=>{
-    setCheck(true);
-    setErr(null);
-    e.preventDefault();
-    const res = await fetch(signInUrl,{
-      method:'POST',
-      body:JSON.stringify({name,password}),
+  const [name, setName] = useState();
+  const [password, setPassword] = useState();
+  const [check, setCheck] = useState(false);
+  const [err, setErr] = useState();
+  const navigate = useNavigate();
+  const handelSubmit = async (e) => {
+    setCheck(true); // activate the loader icon which mean the data is processing
+    setErr(null);   // mark there is no error
+    e.preventDefault(); // prevent the normal behavior for the form
+    // sending the user data to server
+    const res = await fetch(signInUrl, {
+      method: 'POST',
+      body: JSON.stringify({ name, password }),
       headers: {
         "Content-Type": "application/json",
       },
-    })    
-    const data =await res.json();
-    if(res.ok){
-      console.log(data);
-    }else{
+    })
+    const data = await res.json();
+    // if the data is correct store the token into local storage
+    if (res.ok) {
+      localStorage.setItem('auth', data.token);
+      if (jwtDecode(data.token).role == "admin")
+        navigate('/');
+
+      navigate('/');
+    } else {
+      // mark there is an error 
       setErr(data.message);
     }
-    setCheck(false);
+    setCheck(false); // stop the loader 
   }
+  useEffect(() => {
+    // if the user already login replace the page
+    if (localStorage.getItem('auth')) {
+      navigate('/');
+    }
+  }, [])
   return (
     <div className="flex justify-between">
       <div
         style={{
-          backgroundImage: `url("/uploads/1722439590554.jpg")`,
+          backgroundImage: `url("/background.jpeg")`,
           backgroundSize: "cover",
         }}
-        className="w-3/5 h-[100vh]"
+        className="w-3/5 min-h-[100vh] md:block hidden"
       >
         <div
-          className="w-full h-full"
+          className={`w-full h-full`}
           style={{ backgroundColor: "rgba(29, 23 ,80 , .6)" }}
         >
           <div className="relative text-center top-1/3 w-full">
@@ -58,26 +74,26 @@ export default function SignIn() {
               تسجيل الدخول للمنظومه
             </h1>
             <h2 className="text-white font-semibold text-5xl my-8">
-              هيئه الاستخبارات العسكريه{" "}
+              هيئة الاستخبارات العسكريه{" "}
             </h2>
             <h2 className="text-white font-medium text-5xl"> فرع شئون ضباط </h2>
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center w-2/5">
+      <div className="flex flex-col justify-center w-full md:w-2/5">
         <div className="text-center">
-          <img src="/logo.png" className="w-32 mx-auto" />
-          <h1 className="font-bold pt-1 font-serif text-xs">
-            هيئه الاستخبارات / شئون ضباط
+          <img className={`${style.slidecaption} w-28 mx-auto`} alt="logo" src="/logo.png" />
+          <h1 className="font-bold mt-6 font-serif text-xs">
+            هيئة الاستخبارات / شئون ضباط
           </h1>
         </div>
         <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
-            <form className="w-full flex flex-col items-center mt-8" onSubmit={handelSubmit}>
+            <form name="signin" className="w-full flex flex-col items-center mt-8" onSubmit={handelSubmit}>
               <TextField
                 label="اسم المستخدم"
                 variant="outlined"
-                onChange={(e) => {setName(e.target.value)}}
+                onChange={(e) => { setName(e.target.value.trim()) }}
                 dir="rtl"
                 required
                 className="w-[70%] !mb-5"
@@ -87,7 +103,7 @@ export default function SignIn() {
                 variant="outlined"
                 type="password"
                 dir="rtl"
-                onChange={(e) => {setPassword(e.target.value)}}
+                onChange={(e) => { setPassword(e.target.value) }}
                 required
                 className="w-[70%] !mb-5"
               />
@@ -98,7 +114,7 @@ export default function SignIn() {
                 type="submit"
                 className="w-[70%] mt-10"
               >
-                 {check ? <CircularProgress color="inherit" /> :" تسجيل الدخول"}
+                {check ? <CircularProgress color="inherit" /> : " تسجيل الدخول"}
               </Button>
             </form>
           </ThemeProvider>

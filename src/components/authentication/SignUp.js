@@ -107,8 +107,8 @@ export default function SignUp() {
               />
               <select onChange={(e) => { setData({ ...data, role: e.target.value }); }} className="w-[70%] !focus:border-blue-400 border-2 p-4" dir="rtl" >
                 <option className="font-semibold" selected disabled>نوع الحساب</option>
-                <option className="hover:bg-gray-300 font-semibold " value={"super admin"}> ادمن </option>
-                <option className="hover:bg-gray-300 font-semibold " value={"admin"}> رئيس الفرع </option>
+                <option className="hover:bg-gray-300 font-semibold " value={"admin"}> ادمن </option>
+                <option className="hover:bg-gray-300 font-semibold " value={"chief"}> رئيس الفرع </option>
                 <option className="hover:bg-gray-300 font-semibold " value={"montChief"}> رئيس المعلومات </option>
                 <option className="hover:bg-gray-300 font-semibold " value={"infoChief"}> رئيس المنتدبين </option>
                 <option className="hover:bg-gray-300 font-semibold " value={"planChief"}> رئيس التخطيط </option>
@@ -119,14 +119,14 @@ export default function SignUp() {
                 <option className="hover:bg-gray-300 font-semibold " value={"affairs"}> شئون شخصيه</option>
                 <option className="hover:bg-gray-300 font-semibold " value={"sec"}> سكرتاريه </option>
               </select>
-              {/* <TextField
+              <TextField
                 variant="outlined"
                 type="file"
                 label="صورة المستخدم"
                 onChange={(e) => { setData({ ...data, file: e.target.files[0] }); console.log(e.target.files[0]) }}
-                required
+                
                 className="w-[70%] !my-5"
-              /> */}
+              />
               <TextField
                 label="الرقم السري"
                 variant="outlined"

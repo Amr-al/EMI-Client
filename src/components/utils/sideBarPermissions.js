@@ -1,25 +1,25 @@
 export const links = [{
     permission: ['chief', 'admin'], text: 'رئيس الفرع', link: '/docs/chief',
 }, {
-    permission: ['chief', 'admin'], text: 'وارد الى ر. الفرع', link: '/chiefRecieves',
+    permission: ['chief', 'admin'], text: 'وارد الى ر. الفرع', link: '/forwards/chief',
 }, {
     permission: ['chief', 'admin'], text: 'معلومية ر. الفرع', link: '/chiefRecieves',
 }, {
     permission: ['montChief', 'admin'], text: 'رئيس المنتدبين', link: '/docs/montChief',
 }, {
-    permission: ['montChief', 'admin'], text: 'وارد الى ر. المنتدبين', link: '/montRecieves',
+    permission: ['montChief', 'admin'], text: 'وارد الى ر. المنتدبين', link: '/forwards/montChief',
 }, {
     permission: ['montChief', 'admin'], text: 'معلومية ر. المنتدبين', link: '/',
 }, {
     permission: ['infoChief', 'admin'], text: 'رئيس المعلومات', link: '/docs/infoChief',
 }, {
-    permission: ['infoChief', 'admin'], text: 'وارد الى ر. معلومات', link: '/infochief',
+    permission: ['infoChief', 'admin'], text: 'وارد الى ر. معلومات', link: '/forwards/infochief',
 }, {
     permission: ['infoChief', 'admin'], text: 'معلومية ر. المعلومات', link: '/',
 }, {
     permission: ['planChief', 'admin'], text: 'رئيس التخطيط', link: '/docs/planChief',
 }, {
-    permission: ['planChief', 'admin'], text: 'وارد الى ر. التخطيط', link: '/chief',
+    permission: ['planChief', 'admin'], text: 'وارد الى ر. التخطيط', link: '/forwards/planChief',
 }, {
     permission: ['planChief', 'admin'], text: 'معلومية ر. التخطيط', link: '/',
 }, {

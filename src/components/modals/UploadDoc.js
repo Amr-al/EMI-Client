@@ -45,11 +45,11 @@ export default function UploadDoc({ openUpload, setUpload }) {
         })
         // if the status is sent ok then close the modal and stop the loader
         if (res.status === 200) {
-            window.location.reload();
+           // window.location.reload();
         } else {
             // if something went wrong print the error message and stop the loader 
-            res = await res.json();
-            setUploading(false);
+            // res = await res.json();
+            // setUploading(false);
             setErr(res.message);
         }
     }

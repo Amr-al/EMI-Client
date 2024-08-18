@@ -3,22 +3,22 @@ import Header from "../commons/Header";
 import SideBar from "../sideBar/SideBar";
 import { Checkbox } from "@mui/material";
 import UploadDoc from "../modals/UploadDoc";
-import { getNotSeenDocs, updateProfile } from "../../backendUrls";
+import { getForwardsDocs, getNotSeenDocs, updateProfile } from "../../backendUrls";
 import { useNavigate, useParams } from "react-router-dom";
 import { heads } from '../utils/tabelHead'
 import { jwtDecode } from "jwt-decode";
 
-export default function UnseenFaxs() {
+export default function Forwards() {
     const navigate = useNavigate();
-    const { bossName } = useParams();
+    const { role } = useParams();
     const [data, setData] = useState();
     const test = async () => {
         const token = localStorage.getItem('auth');
-        let res = await fetch(getNotSeenDocs, {
+        let res = await fetch(getForwardsDocs, {
             method: 'GET',
             headers: {
                 authorization: token,
-                role: bossName
+                role
             }
         });
         if (res.ok) {

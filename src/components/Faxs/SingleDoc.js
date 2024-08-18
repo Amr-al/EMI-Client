@@ -80,7 +80,7 @@ export default function SingleDoc() {
         setReviewed(true);          // mark the document as reviewed to show the Alert
         setTimeout(() => {
             setReviewed(false);     // mark the document as not reviewed to close the Alert
-        }, 20000);
+        }, 2000);
     }
 
     const failAlert = (message) => {
@@ -88,7 +88,7 @@ export default function SingleDoc() {
         // if the user submit the form without entering a document show an error for 2s
         setTimeout(() => {
             setErr(null)
-        }, 20000);
+        }, 2000);
     }
 
     const handelSubmit = async(e) => {
@@ -124,7 +124,7 @@ export default function SingleDoc() {
 
         if (res.status == 200) {
             res = await res.json();
-            console.log(res)
+            console.log('xxx',res)
             setData(res);
         } else {
             res = await res.json();
@@ -152,8 +152,11 @@ export default function SingleDoc() {
                     </div>
                     <hr className="w-full mt-4 h-4"></hr>
                     <div className="w-[90%] md:w-[65%] mx-auto">
-                        <div className=" mx-auto overflow-auto border-2 mt-8 border-double shadow-md">
-                            <img src="/uploads/1234.jpg" alt="fax" className="max-w-[100%] h-auto " />
+                        <div className="flex flex-col mx-auto overflow-auto mt-8 ">
+                            {data?.images?.map((img,k)=>{
+                                return<img src={`/uploads/${img}`} alt="fax" key={k} className="max-w-[100%] border-2 border-gray my-2 h-auto " />
+                            })}
+                            
                         </div>
                         <div className="flex flex-col gap-2 w-[60%] mt-8 mx-auto" dir="rtl">
                             <CacheProvider value={cacheRtl}>
@@ -196,15 +199,15 @@ export default function SingleDoc() {
                                     <FormControl>
                                         <Select
                                             value={bossName}
-                                            renderValue={(data) => { return data }}
+                                            displayEmpty
+                                            renderValue={() => { return bossName }}
                                             onChange={(e) => { setBoss(e.target.value.ar); setData({ ...data, forwardTo: e.target.value.en }) }}
-                                            placeholder={data.forwardTo}
                                             MenuProps={MenuProps}
                                             className="border-2 border-grey"
                                             sx={{ fontSize: '1.4rem' }}
                                             dir="rtl"
                                         >
-                                            {bosses.map((name) => {
+                                            {bosses?.map((name) => {
                                                 return <MenuItem
                                                     key={name.name.en}
                                                     value={name.name}
